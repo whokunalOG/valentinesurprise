@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <style>
+        :root {
+            --pink-bg: #fce4ec;
+            --dark-pink: #f06292;
+            --accent-red: #e91e63;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--pink-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 8px solid #ffccd5;
+        }
+
+        .page { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .page.active { display: block; }
+
+        h1 { color: var(--accent-red); font-size: 2rem; }
+        p { color: #555; }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn-yes { background: var(--accent-red); color: white; }
+        .btn-no { background: #ccc; color: #666; }
+
+        .gift-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gift-btn {
+            background: #ff8fa3;
+            color: white;
+            padding: 20px 10px;
+            border-radius: 10px;
+            border: 2px dashed white;
+        }
+
+        .letter {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 5px 5px 0px #fbc02d;
+            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .qr-code { width: 150px; margin: 20px auto; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decorative Hearts */
+        .heart-decor { position: absolute; top: 10px; right: 10px; font-size: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="page1" class="page active">
+        <div class="heart-decor">💖</div>
+        <h1>Hey there,<br>Will you be my Valentine?</h1>
+        <div class="btn-container">
+            <button class="btn-yes" onclick="showPage('page2')">YES OF COURSE</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveNo()">NO THANK YOU</button>
+        </div>
+    </div>
+
+    <div id="page2" class="page">
+        <h1>Yay, you said yes!</h1>
+        <p>I made all these for you babe</p>
+        <div class="gift-box">
+            <button class="gift-btn" onclick="showPage('page3')">Gift 1</button>
+            <button class="gift-btn" onclick="showPage('page4')">Gift 2</button>
+            <button class="gift-btn" onclick="showPage('page5')">Gift 3</button>
+        </div>
+    </div>
+
+    <div id="page3" class="page">
+        <h2>Your Rose Bouquet 🌹</h2>
+        <p>"You will forever be my only option."</p>
+        <button class="btn-yes" onclick="showPage('page2')">Go Back</button>
+    </div>
+
+    <div id="page4" class="page">
+        <div class="letter">
+            <strong>To the love of my life,</strong><br><br>
+            You make my life so meaningful. I am so lucky to have you as my Valentine this year. 
+            I love you wholeheartedly and I can't wait to continue loving you for the rest of my life.
+            <br><br>Always, Forever.
+        </div>
+        <button class="btn-yes" style="margin-top:20px" onclick="showPage('page2')">Go Back</button>
+    </div>
+
+    <div id="page5" class="page">
+        <h2>A Song for You 🎵</h2>
+        <p>Scan the QR code!</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.youtube.com/watch?v=dQw4w9WgXcQ" alt="QR Code" class="qr-code">
+        <br>
+        <button class="btn-yes" onclick="showPage('page1')">Restart</button>
+    </div>
+</div>
+
+<script>
+    function showPage(pageId) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        // Show the target page
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    // Fun "No" button movement
+    function moveNo() {
+        const btn = document.getElementById('noBtn');
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+        btn.style.position = 'absolute';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+</script>
+
+</body>
+</html>
